@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./App.css";
+import { FilterBox } from "./components/FilterBox";
 
 function App() {
   const [items, setItems] = useState<string[]>([]);
@@ -13,7 +13,7 @@ function App() {
 
   console.log("items", items);
 
-  return <>{items && items.map((item) => <p>{item}</p>)}</>;
+  return <FilterBox />;
 }
 
 export default App;
