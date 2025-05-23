@@ -1,18 +1,18 @@
-@use '../styles/variables' as *;
+@use "../styles/variables" as *;
 
 .container {
-    background-color: $color-offwhite;
-    border-radius: 5px;
-    border: 2px solid $color-light-grey;
-    display: flex;
-    flex-direction: column;
-    margin: 30px;
-    max-width: 595px;
-    padding: 45px 50px;
-    width: 1000%;
+  background-color: $color-offwhite;
+  border-radius: 5px;
+  border: 2px solid $color-light-grey;
+  display: flex;
+  flex-direction: column;
+  margin: 30px;
+  max-width: 595px;
+  padding: 45px 50px;
+  width: 1000%;
 
-    .title {
-        color: $color-dark-grey;
-        font-size: 30px;
-    }
+  .title {
+    color: $color-dark-grey;
+    font-size: 30px;
+  }
 }
