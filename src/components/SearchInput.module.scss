@@ -1,0 +1,37 @@
+@use '../styles/variables' as *;
+
+.searchContainer {
+  background-color: $color-white;
+  border: $default-border;
+  border-radius: $default-border-radius;
+  display: flex;
+  margin: 30px 0;
+  padding: 16px 20px;
+}
+
+input {
+  background: transparent;
+  border: none;
+  flex: 1;
+  font-size: 26px;
+  outline: none;
+}
+
+.iconButton {
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  outline-offset: 5px;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+
+  .icon {
+    height: 26px;
+    width: 26px;
+  }
+}
