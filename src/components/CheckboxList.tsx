@@ -17,6 +17,14 @@ const fetchItems = async () => {
 export const CheckboxList = ({ search }: CheckboxListProps) => {
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
 
+  const filterListBySearch = (items: string[], search: string) => {
+    return search
+      ? items.filter((item) =>
+          item.toLowerCase().includes(search.toLowerCase())
+        )
+      : items;
+  };
+
   const { data, isLoading, isError } = useQuery({
     queryKey: ['items'],
     queryFn: fetchItems,
@@ -40,11 +48,11 @@ export const CheckboxList = ({ search }: CheckboxListProps) => {
     );
   }
 
-  const items = search
-    ? data.data.filter((item: string) =>
-        item.toLowerCase().includes(search.toLowerCase())
-      )
-    : data.data;
+  const filteredItems = filterListBySearch(
+    data.data.filter((item: string) => !checkedItems.includes(item)),
+    search
+  );
+  const filteredCheckedItems = filterListBySearch(checkedItems, search);
 
   const toggleChecked = (item: string) => {
     setCheckedItems((prev) =>
@@ -54,19 +62,35 @@ export const CheckboxList = ({ search }: CheckboxListProps) => {
 
   return (
     <div className={styles.checkboxListContainer}>
-      {items.map((item: string, index: number) => (
+      {filteredCheckedItems.map((item: string, index: number) => (
         <label
           key={item}
-          htmlFor={index.toString()}
+          htmlFor={`${index.toString()} - ${item}`}
+          className={clsx(styles.checkboxItem, styles.checked)}
+        >
+          <input
+            id={`${index.toString()} - ${item}`}
+            type="checkbox"
+            className={styles.checkboxInput}
+            checked
+            onChange={() => toggleChecked(item)}
+          />
+          {item}
+        </label>
+      ))}
+
+      {filteredItems.map((item: string, index: number) => (
+        <label
+          key={item}
+          htmlFor={`${index.toString()} - ${item}`}
           className={clsx(styles.checkboxItem, {
             [styles.checked]: checkedItems.includes(item),
           })}
         >
           <input
-            id={index.toString()}
+            id={`${index.toString()} - ${item}`}
             type="checkbox"
             className={styles.checkboxInput}
-            checked={checkedItems.includes(item)}
             onChange={() => toggleChecked(item)}
           />
           {item}
