@@ -1,8 +1,9 @@
-import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 import styles from './CheckboxList.module.scss';
 import { CheckboxItem } from './CheckboxItem';
+
+import { useSelectedList } from '../hooks/useSelectedList';
 
 type CheckboxListProps = {
   search: string;
@@ -15,7 +16,7 @@ const fetchItems = async () => {
 };
 
 export const CheckboxList = ({ search }: CheckboxListProps) => {
-  const [checkedItems, setCheckedItems] = useState<string[]>([]);
+  const { selectedItems, toggleSelectedItem } = useSelectedList();
 
   const filterListBySearch = (items: string[], search: string) => {
     return search
@@ -49,16 +50,10 @@ export const CheckboxList = ({ search }: CheckboxListProps) => {
   }
 
   const filteredItems = filterListBySearch(
-    data.data.filter((item: string) => !checkedItems.includes(item)),
+    data.data.filter((item: string) => !selectedItems.includes(item)),
     search
   );
-  const filteredCheckedItems = filterListBySearch(checkedItems, search);
-
-  const toggleChecked = (item: string) => {
-    setCheckedItems((prev) =>
-      prev.includes(item) ? prev.filter((i) => i !== item) : [...prev, item]
-    );
-  };
+  const filteredCheckedItems = filterListBySearch(selectedItems, search);
 
   return (
     <div className={styles.checkboxListContainer}>
@@ -70,7 +65,7 @@ export const CheckboxList = ({ search }: CheckboxListProps) => {
             checked
             id={id}
             label={item}
-            onChange={toggleChecked}
+            onChange={() => toggleSelectedItem(item)}
           />
         );
       })}
@@ -82,7 +77,7 @@ export const CheckboxList = ({ search }: CheckboxListProps) => {
             key={id}
             id={id}
             label={item}
-            onChange={toggleChecked}
+            onChange={() => toggleSelectedItem(item)}
           />
         );
       })}
