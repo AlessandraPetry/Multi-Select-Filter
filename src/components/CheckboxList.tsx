@@ -1,24 +1,40 @@
 import { useState } from 'react';
-import styles from './CheckboxList.module.scss';
 import clsx from 'clsx';
+import { useQuery } from '@tanstack/react-query';
+
+import styles from './CheckboxList.module.scss';
+
+const fetchItems = async () => {
+  const res = await fetch('/items.json');
+  if (!res.ok) throw new Error('Failed to fetch items');
+  return res.json();
+};
 
 export const CheckboxList = () => {
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
 
-  const options = [
-    'Boek',
-    'Film/Tv-serie',
-    'Muziek',
-    'Onbekend',
-    'Dagboek',
-    'Hoesje voor mobiele telefoon',
-    'Kalender',
-    'Muziek',
-    'Onbekend',
-    'Dagboek',
-    'Hoesje voor mobiele telefoon',
-    'Kalender',
-  ];
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['items'],
+    queryFn: fetchItems,
+  });
+
+  if (isLoading) {
+    return (
+      <div className={styles.checkboxListContainer}>
+        {Array.from({ length: 8 }).map((_, index) => (
+          <div key={index} className={styles.skeletonItem}></div>
+        ))}
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className={styles.checkboxListContainer}>
+        <p className={styles.errorMessage}>Failed to load items.</p>
+      </div>
+    );
+  }
 
   const toggleChecked = (item: string) => {
     setCheckedItems((prev) =>
@@ -28,7 +44,7 @@ export const CheckboxList = () => {
 
   return (
     <div className={styles.checkboxListContainer}>
-      {options.map((item, index) => (
+      {data?.data.map((item: string, index: number) => (
         <label
           key={item}
           htmlFor={index.toString()}

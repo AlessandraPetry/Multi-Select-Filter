@@ -3,7 +3,7 @@
 .checkboxListContainer {
   display: flex;
   flex-direction: column;
-  max-height: 400px;
+  height: 400px;
   width: 100%;
   overflow-y: auto;
   padding-right: 0.5rem;
@@ -95,5 +95,24 @@
   &:checked::after {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+.skeletonItem {
+  height: 30px;
+  width: 100%;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  animation: loading 1.2s ease-in-out infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
   }
 }
