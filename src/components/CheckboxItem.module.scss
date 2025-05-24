@@ -1,0 +1,70 @@
+@use '../styles/variables' as *;
+
+.checkboxItem {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  font-size: 16px;
+
+  @media (min-width: $breakpoint-sm) {
+    font-size: 20px;
+  }
+
+  @media (min-width: $breakpoint-md) {
+    font-size: 24px;
+  }
+
+  &.checked {
+    color: $color-blue;
+  }
+}
+
+.checkboxInput {
+  position: relative;
+  display: flex;
+  appearance: none;
+  background-color: $color-white;
+  flex: none;
+  height: 26px;
+  width: 26px;
+  border: $border-default;
+  cursor: pointer;
+  margin-left: 2px;
+
+  @media (min-width: $breakpoint-sm) {
+    height: 30px;
+    width: 30px;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #000;
+    outline-offset: 0px;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 14px;
+    height: 14px;
+    background-color: $color-blue;
+    opacity: 0;
+    transition:
+      opacity 0.2s ease-in-out,
+      transform 0.2s ease-in-out;
+    transform: scale(0.5);
+
+    @media (min-width: $breakpoint-sm) {
+      height: 18px;
+      width: 18px;
+    }
+  }
+
+  &:checked::after {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

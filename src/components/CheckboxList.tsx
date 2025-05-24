@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import clsx from 'clsx';
 import { useQuery } from '@tanstack/react-query';
 
 import styles from './CheckboxList.module.scss';
+import { CheckboxItem } from './CheckboxItem';
 
 type CheckboxListProps = {
   search: string;
@@ -62,40 +62,30 @@ export const CheckboxList = ({ search }: CheckboxListProps) => {
 
   return (
     <div className={styles.checkboxListContainer}>
-      {filteredCheckedItems.map((item: string, index: number) => (
-        <label
-          key={item}
-          htmlFor={`${index.toString()} - ${item}`}
-          className={clsx(styles.checkboxItem, styles.checked)}
-        >
-          <input
-            id={`${index.toString()} - ${item}`}
-            type="checkbox"
-            className={styles.checkboxInput}
+      {filteredCheckedItems.map((item: string, index: number) => {
+        const id = `${index.toString()} - ${item}`;
+        return (
+          <CheckboxItem
+            key={id}
             checked
-            onChange={() => toggleChecked(item)}
+            id={id}
+            label={item}
+            onChange={toggleChecked}
           />
-          {item}
-        </label>
-      ))}
+        );
+      })}
 
-      {filteredItems.map((item: string, index: number) => (
-        <label
-          key={item}
-          htmlFor={`${index.toString()} - ${item}`}
-          className={clsx(styles.checkboxItem, {
-            [styles.checked]: checkedItems.includes(item),
-          })}
-        >
-          <input
-            id={`${index.toString()} - ${item}`}
-            type="checkbox"
-            className={styles.checkboxInput}
-            onChange={() => toggleChecked(item)}
+      {filteredItems.map((item: string, index: number) => {
+        const id = `${index.toString()} - ${item}`;
+        return (
+          <CheckboxItem
+            key={id}
+            id={id}
+            label={item}
+            onChange={toggleChecked}
           />
-          {item}
-        </label>
-      ))}
+        );
+      })}
     </div>
   );
 };
