@@ -15,7 +15,10 @@ export const CheckboxItem = ({
   onChange,
 }: CheckboxItemProps) => {
   return (
-    <label htmlFor={id} className={clsx(styles.checkboxItem, styles.checked)}>
+    <label
+      htmlFor={id}
+      className={clsx(styles.checkboxItem, checked && styles.checked)}
+    >
       <input
         id={id}
         type="checkbox"
