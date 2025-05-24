@@ -7,15 +7,17 @@
   display: flex;
   flex-direction: column;
   max-width: 595px;
+  width: 310px;
   padding: 15px 15px;
-  width: 100%;
 
   @media (min-width: $breakpoint-sm) {
     padding: 20px 25px;
+    width: 390px;
   }
 
   @media (min-width: $breakpoint-md) {
     padding: 35px 50px;
+    width: 450px;
   }
 
   .title {

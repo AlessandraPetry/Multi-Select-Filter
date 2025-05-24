@@ -4,13 +4,17 @@ import { useQuery } from '@tanstack/react-query';
 
 import styles from './CheckboxList.module.scss';
 
+type CheckboxListProps = {
+  search: string;
+};
+
 const fetchItems = async () => {
   const res = await fetch('/items.json');
   if (!res.ok) throw new Error('Failed to fetch items');
   return res.json();
 };
 
-export const CheckboxList = () => {
+export const CheckboxList = ({ search }: CheckboxListProps) => {
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
 
   const { data, isLoading, isError } = useQuery({
@@ -36,6 +40,12 @@ export const CheckboxList = () => {
     );
   }
 
+  const items = search
+    ? data.data.filter((item: string) =>
+        item.toLowerCase().includes(search.toLowerCase())
+      )
+    : data.data;
+
   const toggleChecked = (item: string) => {
     setCheckedItems((prev) =>
       prev.includes(item) ? prev.filter((i) => i !== item) : [...prev, item]
@@ -44,7 +54,7 @@ export const CheckboxList = () => {
 
   return (
     <div className={styles.checkboxListContainer}>
-      {data?.data.map((item: string, index: number) => (
+      {items.map((item: string, index: number) => (
         <label
           key={item}
           htmlFor={index.toString()}
