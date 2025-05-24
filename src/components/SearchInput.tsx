@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styles from './SearchInput.module.scss';
 
 type SearchInputProps = {
@@ -7,30 +6,23 @@ type SearchInputProps = {
 };
 
 export const SearchInput = ({ value, onSearch }: SearchInputProps) => {
-  const [input, setInput] = useState(value);
-
   return (
     <div className={styles.searchContainer}>
       <input
         type="text"
         placeholder="Zoek op ..."
         autoFocus
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            onSearch(input);
-          }
-        }}
+        value={value}
+        onChange={(e) => onSearch(e.target.value)}
       />
-      <button
-        type="submit"
-        className={styles.iconButton}
-        aria-label="Zoek"
-        onClick={() => onSearch(input)}
-      >
-        <img src="/images/search.svg" alt="" className={styles.icon} />
-      </button>
+      <span className={styles.iconContainer}>
+        <img
+          src="/images/search.svg"
+          alt=""
+          aria-hidden
+          className={styles.icon}
+        />
+      </span>
     </div>
   );
 };

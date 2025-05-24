@@ -26,18 +26,13 @@ input {
   }
 }
 
-.iconButton {
+.iconContainer {
   align-items: center;
   background: none;
   border: none;
   cursor: pointer;
   display: flex;
   justify-content: center;
-  @include focus-visible();
-
-  &:hover {
-    transform: scale(1.2);
-  }
 
   .icon {
     height: 22px;
