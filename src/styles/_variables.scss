@@ -14,3 +14,8 @@ $font-family-base: system-ui, 'Segoe UI', Helvetica, Arial, sans-serif;
 // Borders
 $border-radius-default: 8px;
 $border-default: 2px solid $color-grey-light;
+
+// Breakpoints
+$breakpoint-sm: 460px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;

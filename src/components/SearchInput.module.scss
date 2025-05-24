@@ -14,8 +14,16 @@ input {
   background: transparent;
   border: none;
   flex: 1;
-  font-size: 26px;
+  font-size: 20px;
   outline: none;
+
+  @media (min-width: $breakpoint-sm) {
+    font-size: 26px;
+  }
+
+  @media (min-width: $breakpoint-md) {
+    font-size: 26px;
+  }
 }
 
 .iconButton {
@@ -32,7 +40,12 @@ input {
   }
 
   .icon {
-    height: 26px;
-    width: 26px;
+    height: 22px;
+    width: 22px;
+
+    @media (min-width: $breakpoint-sm) {
+      height: 26px;
+      width: 26px;
+    }
   }
 }

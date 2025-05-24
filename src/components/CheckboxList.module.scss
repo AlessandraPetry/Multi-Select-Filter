@@ -35,7 +35,15 @@
   gap: 25px;
   margin-bottom: 15px;
   cursor: pointer;
-  font-size: 24px;
+  font-size: 16px;
+
+  @media (min-width: $breakpoint-sm) {
+    font-size: 20px;
+  }
+
+  @media (min-width: $breakpoint-md) {
+    font-size: 24px;
+  }
 
   &.checked {
     color: $color-blue;
@@ -48,11 +56,16 @@
   appearance: none;
   background-color: $color-white;
   flex: none;
-  height: 30px;
-  width: 30px;
+  height: 26px;
+  width: 26px;
   border: $border-default;
   cursor: pointer;
   margin-left: 2px;
+
+  @media (min-width: $breakpoint-sm) {
+    height: 30px;
+    width: 30px;
+  }
 
   &:focus-visible {
     outline: 2px solid #000;
@@ -64,14 +77,19 @@
     position: absolute;
     top: 4px;
     left: 4px;
-    width: 18px;
-    height: 18px;
+    width: 14px;
+    height: 14px;
     background-color: $color-blue;
     opacity: 0;
     transition:
       opacity 0.2s ease-in-out,
       transform 0.2s ease-in-out;
     transform: scale(0.5);
+
+    @media (min-width: $breakpoint-sm) {
+      height: 18px;
+      width: 18px;
+    }
   }
 
   &:checked::after {
