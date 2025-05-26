@@ -5,6 +5,7 @@ import styles from './FilterBox.module.scss';
 import { SearchInput } from './SearchInput';
 import { useDebounce } from '../hooks/useDebounce';
 import { useFetch } from '../hooks/useFetch';
+import { decodeHtmlEntities } from '../utils/decodeHtmlEntities';
 
 export const FilterBox = () => {
   const [search, setSearch] = useState('');
@@ -13,10 +14,15 @@ export const FilterBox = () => {
   const fetchItems = async () => {
     const res = await fetch('/items.json');
     if (!res.ok) throw new Error('Failed to fetch items');
+
     return res.json();
   };
 
   const { data, isLoading, isError } = useFetch('items', fetchItems);
+
+  const items = (data?.data || []).map((item: string) =>
+    decodeHtmlEntities(item)
+  );
 
   return (
     <div className={styles.container}>
@@ -25,7 +31,7 @@ export const FilterBox = () => {
       <CheckboxList
         isError={isError}
         isLoading={isLoading}
-        items={data?.data || []}
+        items={items}
         search={debouncedSearch}
       />
       <Button />
