@@ -97,6 +97,8 @@ Here are some ideas for further improvements:
 
 - 🛠️ Fetch items in batches.
 
+- 🛠️ Add list sorting
+
 ## Design Reference
 
 The layout was created based on the image below.
